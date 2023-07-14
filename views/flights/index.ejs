@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         <% flights.forEach(flight => { %>
-            <tr>
+            <tr style="color: <%= flight.valid ? 'black' : 'red' %> ">
                 <td><%= flight.airline %></td>
                 <td><%= flight.airport %></td>
                 <td><%= flight.flightNo %></td>
