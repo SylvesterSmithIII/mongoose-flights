@@ -10,6 +10,12 @@ const destinationSchema = new Schema({
     arrival: Date
 })
 
+const ticketSchema = new Schema({
+    seat: { type: String, match: /[A-F][1-9]\d?/ },
+    price: { type: Number, min: 0 },
+    flight: { type: Schema.Types.ObjectId, ref: 'Flight'}
+})
+
 const flightSchema = new Schema({
     airline: {
         type: String,
@@ -35,7 +41,8 @@ const flightSchema = new Schema({
             return pacificTime
         }
     },
-    destinations: [destinationSchema]
+    destinations: [destinationSchema],
+    tickets: [ticketSchema]
 });
 
 // Compile scheme into a model and export it

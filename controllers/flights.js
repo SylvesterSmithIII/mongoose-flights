@@ -57,6 +57,7 @@ async function show(req, res) {
         flight[0].destinations.forEach(d => {
             disabledOptions.push(d.airport)
         })
+        
 
         let departsDate = `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}`;
         // ("YYYY-MM") + "-DDTHH:MM"

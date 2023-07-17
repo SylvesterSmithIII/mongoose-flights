@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+
+<h1><%= errMsg || "" %></h1>
+<h3>Buy A Ticket For Flight <%= flight.flightNo %></h3>
+
+
+<form action="/flights/<%= flight.flightNo %>/tickets" method="POST">
+    <label>Seat:</label>
+    <input name="seat" required pattern="[A-F][1-9]\d?">
+    <br><label>Price</label>
+    <input type="number" name="price" min="0">
+    <br><input type="submit" value="Buy Ticket">
+</form>
+<%- include('../partials/footer') %>

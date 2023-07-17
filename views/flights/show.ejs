@@ -54,4 +54,25 @@
     <h5>No Destinations Yet</h5>
   <% } %>
 
+  <br><br><h3><a href="/flights/<%= flight.flightNo %>/tickets/new">Buy Ticket</a></h3>
+    <h2>Purchased Tickets</h2><br>
+  <% if (flight.tickets.length) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Seat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% flight.tickets.forEach(function(t) { %>
+          <tr>
+            <td><%= t.seat %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <h5>No Tickets Yet</h5>
+  <% } %>
+
 <%- include('../partials/footer') %>
