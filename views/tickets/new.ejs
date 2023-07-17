@@ -1,8 +1,26 @@
-<%- include('../partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flights</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <header class="header">
+    <h2 class="title"><%= flight.flightNo %></h2>
+    <nav class="nav-ctrl">
+      <a href="/">Home</a>
+      |
+      <a href="/flights">All Flights</a>
+      |
+      <a href="/flights/new">Add Flight</a>
+    </nav>
+  </header>
+  <main>
 
 <h1><%= errMsg || "" %></h1>
-<h3>Buy A Ticket For Flight <%= flight.flightNo %></h3>
-
 
 <form action="/flights/<%= flight.flightNo %>/tickets" method="POST">
     <label>Seat:</label>

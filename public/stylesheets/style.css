@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,4 +8,39 @@ a {
 
 .red-text {
   color: red;
+}
+
+.title {
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+
+.nav-ctrl {
+  position: absolute;
+  right: 10px;
+  font-size: 14px;
+}
+
+.nav-ctrl > a {
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.nav-ctrl > a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.header {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: lightgray;
+  padding: 0 10px 0 20px;
+}
+
+main {
+  padding: 50px;
 }

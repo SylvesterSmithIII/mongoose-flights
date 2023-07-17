@@ -17,7 +17,7 @@ function newFlight(req, res) {
     // ("YYYY-MM") + "-DDTHH:MM"
     departsDate += `-${dt.getDate().toString().padStart(2, '0')}T${dt.toTimeString().slice(0, 5)}`;
     console.log(departsDate)
-    res.render('flights/new', { departsDate });
+    res.render('flights/new', { departsDate, title: "Add Flight" });
 }
 
 async function create(req, res) {
@@ -25,7 +25,7 @@ async function create(req, res) {
         await Flight.create(req.body)
         res.redirect('/flights')
     } catch (err) {
-        res.render('flights/new', {errorMsg: err.message})
+        res.render('flights/new', { errorMsg: err.message, title: "Add Flight"} )
     }
 }
 
@@ -44,7 +44,7 @@ async function index(req, res) {
         }
     })
     console.log(flights)
-    res.render('flights/index', { flights })
+    res.render('flights/index', { flights, title: "All Flights" })
 }
 
 async function show(req, res) {
@@ -57,13 +57,13 @@ async function show(req, res) {
         flight[0].destinations.forEach(d => {
             disabledOptions.push(d.airport)
         })
-        
+
 
         let departsDate = `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}`;
         // ("YYYY-MM") + "-DDTHH:MM"
         departsDate += `-${dt.getDate().toString().padStart(2, '0')}T${dt.toTimeString().slice(0, 5)}`;
         
-        res.render('flights/show', { flight: flight[0], departsDate, disabledOptions });
+        res.render('flights/show', { flight: flight[0], departsDate, disabledOptions, title: "Flight Details" });
     } catch (err) {
         console.log(err)
     }

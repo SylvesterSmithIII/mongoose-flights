@@ -1,10 +1,8 @@
 <%- include('../partials/header') %>
 
-<h2>Flight Details</h2>
-
 <section>
-    <div>Airline: </div>
-    <div><%= flight.airline %></div>
+    <label>Airline: </label>
+    <p><%= flight.airline %></p>
     <div>Airport: </div>
     <div><%= flight.airport %></div>
     <div>Flight Number: </div>
@@ -13,7 +11,7 @@
     <div><%= flight.departs %></div>
   </section>
 
-<br><br><h2>Reviews</h2>
+<br><br><h2>Destinations</h2>
 <form method="POST" action="/flights/<%= flight.flightNo %>/destinations">
 
   <label>Airport:
