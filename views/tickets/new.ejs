@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="header">
-    <h2 class="title"><%= flight.flightNo %></h2>
+    <h2 class="title">Buy A Ticket For Flight <%= flight.flightNo %></h2>
     <nav class="nav-ctrl">
       <a href="/">Home</a>
       |
@@ -22,7 +22,7 @@
 
 <h1><%= errMsg || "" %></h1>
 
-<form action="/flights/<%= flight.flightNo %>/tickets" method="POST">
+<form action="/flights/<%= flight.flightNo %>/tickets" method="POST" class="tickets-form">
     <label>Seat:</label>
     <input name="seat" required pattern="[A-F][1-9]\d?">
     <br><label>Price</label>

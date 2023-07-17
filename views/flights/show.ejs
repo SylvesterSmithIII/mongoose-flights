@@ -1,18 +1,29 @@
 <%- include('../partials/header') %>
 
-<section>
-    <label>Airline: </label>
-    <p><%= flight.airline %></p>
-    <div>Airport: </div>
-    <div><%= flight.airport %></div>
-    <div>Flight Number: </div>
-    <div><%= flight.flightNo %></div>
-    <div>Departure Time: </div>
-    <div><%= flight.departs %></div>
-  </section>
 
-<br><br><h2>Destinations</h2>
-<form method="POST" action="/flights/<%= flight.flightNo %>/destinations">
+<section>
+    <div>
+        <h2>Airline: </h2>
+        <div><%= flight.airline %></div>
+    </div>
+    <div>
+        <h2>Airport: </h2>
+        <div><%= flight.airport %></div>
+    </div>
+    <div>
+        <h2>Flight Number: </h2>
+        <div><%= flight.flightNo %></div>
+    </div>
+    <div>      
+        <h2>Departure Time: </h2>
+        <div><%= flight.departs %></div>
+    </div>
+</section>
+
+<br><br>
+
+<h2>Add Destination</h2>
+<form method="POST" action="/flights/<%= flight.flightNo %>/destinations" class="destinations-form">
 
   <label>Airport:
     <select name="airport" required>
@@ -30,6 +41,7 @@
   <input type="submit" value="Add Destination">
 </form>
 
+<h3>All Destinations</h2>
 <% if (flight.destinations.length) { %>
     <table>
       <thead>
@@ -52,8 +64,11 @@
     <h5>No Destinations Yet</h5>
   <% } %>
 
-  <br><br><h3><a href="/flights/<%= flight.flightNo %>/tickets/new">Buy Ticket</a></h3>
-    <h2>Purchased Tickets</h2><br>
+  <br><br>
+    <div class="header-div">
+        <h3>Purchased Tickets<a class="to-right" href="/flights/<%= flight.flightNo %>/tickets/new">Buy Ticket</a></h3>
+        
+    </div>
   <% if (flight.tickets.length) { %>
     <table>
       <thead>
