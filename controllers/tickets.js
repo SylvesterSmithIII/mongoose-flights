@@ -1,4 +1,5 @@
 const Flight = require('../models/flight');
+const Ticket = require('../models/ticket')
 
 module.exports = {
     new: newTicket,
@@ -7,23 +8,23 @@ module.exports = {
 
 async function create(req, res) {
     try {
-    const flight = await Flight.find({ flightNo: req.params.id });
+    const flight = await Flight.findOne({ flightNo: req.params.id });
+    const tickets = await Ticket.find({ flight: flight._id })
     
     // req.body.arrival = new Date(req.body.arrival)
     let filledSeats = []
-    flight[0].tickets.forEach(seat => {
+    tickets.forEach(seat => {
         filledSeats.push(seat.seat) 
     })
     if (filledSeats.includes(req.body.seat)) {
-        return res.render('tickets/new', { flight: flight[0], errMsg: "That seat is already taken. Choose a new seat."})
+        return res.render('tickets/new', { flight: flight, errMsg: "That seat is already taken. Choose a new seat."})
     }
     req.body.flight = flight._id
-    flight[0].tickets.push(req.body)
+    await Ticket.create(req.body)
   // We can push (or unshift) subdocs into Mongoose arrays
  
     // Save any changes made to the movie doc
-    await flight[0].save();
-    res.redirect(`/flights/${flight[0].flightNo}`);
+    res.redirect(`/flights/${flight.flightNo}`);
   } catch (err) {
     console.log(err);
   }
@@ -33,7 +34,7 @@ async function create(req, res) {
 
 async function newTicket(req, res) {
 
-    const flight = await Flight.find({ flightNo: req.params.id })
+    const flight = await Flight.findOne({ flightNo: req.params.id })
 
-    res.render('tickets/new', { flight: flight[0], errMsg: "" });
+    res.render('tickets/new', { flight: flight, errMsg: "" });
 }

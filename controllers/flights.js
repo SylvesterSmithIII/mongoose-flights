@@ -1,4 +1,5 @@
 const Flight = require('../models/flight')
+const Ticket = require('../models/ticket')
 
 module.exports = {
     new: newFlight,
@@ -17,15 +18,21 @@ function newFlight(req, res) {
     // ("YYYY-MM") + "-DDTHH:MM"
     departsDate += `-${dt.getDate().toString().padStart(2, '0')}T${dt.toTimeString().slice(0, 5)}`;
     console.log(departsDate)
-    res.render('flights/new', { departsDate, title: "Add Flight" });
+    res.render('flights/new', { departsDate, title: "Add Flight", errMsg: "" });
 }
 
 async function create(req, res) {
+    const flights = await Flight.find({})
+    flights.forEach(flight => {
+        if (req.body.flightNo === flight.flightNo) {
+            return res.render('flights/new', { errMsg: "Flight Number Taken!", title: "Add Flight"} )
+        }
+    })
     try {
         await Flight.create(req.body)
         res.redirect('/flights')
     } catch (err) {
-        res.render('flights/new', { errorMsg: err.message, title: "Add Flight"} )
+        res.render('flights/new', { errMsg: err.message, title: "Add Flight"} )
     }
 }
 
@@ -49,21 +56,32 @@ async function index(req, res) {
 
 async function show(req, res) {
     try {
-        const flight = await Flight.find({ flightNo: req.params.id })
-        const dt = flight[0].departs
-        flight[0].destinations.sort((a, b) => a.arrival - b.arrival)
+        const flight = await Flight.findOne({ flightNo: req.params.id })
+        const dt = flight.departs
+        flight.destinations.sort((a, b) => a.arrival - b.arrival)
         let disabledOptions = []
-        disabledOptions.push(flight[0].airport)
-        flight[0].destinations.forEach(d => {
+        disabledOptions.push(flight.airport)
+        flight.destinations.forEach(d => {
             disabledOptions.push(d.airport)
         })
-
+        let tickets
+        try {
+            tickets = await Ticket.find({ flight: flight._id})
+        } catch (error) {
+            console.log(error)
+        }
 
         let departsDate = `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}`;
         // ("YYYY-MM") + "-DDTHH:MM"
         departsDate += `-${dt.getDate().toString().padStart(2, '0')}T${dt.toTimeString().slice(0, 5)}`;
         
-        res.render('flights/show', { flight: flight[0], departsDate, disabledOptions, title: "Flight Details" });
+        res.render('flights/show', { 
+            flight: flight, 
+            departsDate, 
+            disabledOptions, 
+            title: "Flight Details",
+            tickets
+        });
     } catch (err) {
         console.log(err)
     }
