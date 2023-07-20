@@ -156,6 +156,7 @@ tbody > tr {
   position: absolute;
   background-color: lightgray;
   right: 0;
+  height: 100%;
 }
 
 .top-right-div > h2 {
@@ -165,18 +166,23 @@ tbody > tr {
 }
 
 .section {
-  height: 300px;
+  height: 250px;
+  position: relative
 }
 
 .img-div {
   width: 50%;
   position: absolute;
   left: 0;
-  height: 200px;
+  height: 100%;
 }
 
 .img {
-  object-fit: cover;
+  object-fit: fill;
   height: 100%;
   width: 100%;
+}
+
+.destinations {
+  background-color: inherit;
 }

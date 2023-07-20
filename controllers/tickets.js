@@ -14,10 +14,11 @@ async function create(req, res) {
     // req.body.arrival = new Date(req.body.arrival)
     let filledSeats = []
     tickets.forEach(seat => {
-        filledSeats.push(seat.seat) 
+      console.log(seat.seat)
+      filledSeats.push(seat.seat) 
     })
     if (filledSeats.includes(req.body.seat)) {
-        return res.render('tickets/new', { flight: flight, errMsg: "That seat is already taken. Choose a new seat."})
+      return res.render('tickets/new', { flight: flight, errMsg: "That seat is already taken. Choose a new seat."})
     }
     req.body.flight = flight._id
     await Ticket.create(req.body)

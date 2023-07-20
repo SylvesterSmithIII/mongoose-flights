@@ -12,13 +12,20 @@ function newFlight(req, res) {
     const newFlight = new Flight();
     // Obtain the default date
     const dt = newFlight.departs;
+    const dt2 = new Date()
     // Format the date for the value attribute of the input
     // attatch "YYYY-MM"
     let departsDate = `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}`;
     // ("YYYY-MM") + "-DDTHH:MM"
     departsDate += `-${dt.getDate().toString().padStart(2, '0')}T${dt.toTimeString().slice(0, 5)}`;
+
+    let minDate = `${dt2.getFullYear()}-${(dt2.getMonth() + 1).toString().padStart(2, '0')}`;
+    // ("YYYY-MM") + "-DDTHH:MM"
+    minDate += `-${dt2.getDate().toString().padStart(2, '0')}T${dt2.toTimeString().slice(0, 5)}`;
+
+
     console.log(departsDate)
-    res.render('flights/new', { departsDate, title: "Add Flight", errMsg: "" });
+    res.render('flights/new', { departsDate, title: "Add Flight", errMsg: "", minDate });
 }
 
 async function create(req, res) {
